@@ -1,0 +1,103 @@
+#include <map>
+#include <iostream>
+#include "command_interface.h"
+#include "errors_def.h"
+
+namespace cli = command_line_interface;
+
+enum cmd_id
+{
+	login,
+	signup,
+	exit,
+	delete_account,
+	add_credentials,
+	delete_credentials,
+	change_pwd,
+	change_usrnm
+};
+
+std::map<int, std::string>::iterator itr;
+std::map<int, std::string> commands = {
+	{login, "login"},
+	{signup, "signup"},
+	{exit, "exit"},
+	{delete_account, "delete_user"},
+	{add_credentials, "add_account"},
+	{delete_credentials, "delete_account"},
+	{change_pwd, "change_user_password"},
+	{change_usrnm, "change_username"}};
+
+void execute_commands() {
+	std::string command_str = "";
+	bool skip = false;
+	bool valid_cmd = false;
+	bool logged_in = false;
+	int i;
+
+	while (command_str != commands[exit])
+	{
+		itr = commands.begin();
+
+		if (!skip)
+		{
+			// skiping if command was already inserted when the last one was wrong
+			std::string line;
+			std::getline(std::cin, line);
+		}
+
+		// checking if the command is valid
+		valid_cmd = false;
+		for (itr; itr != commands.end(); itr++)
+		{
+			if (itr->second == command_str)
+			{
+				valid_cmd = true;
+				break;
+			}
+		}
+
+		if (!valid_cmd)
+		{
+			// if the command is not valid ask the user to print all valid commands
+			std::cout << NO_SUCH_COMMAND << std::endl;
+			std::cout << SHOW_COMMAND_LIST;
+
+			std::string to_show;
+			std::getline(std::cin, to_show);
+
+			// print all the available commands
+			if (to_show == SHOW_COMMAND)
+				for (auto &cmd : commands)
+					std::cout << cmd.second;
+			else
+			{
+				// use the new inserted command insted
+				command_str = to_show;
+				skip = true;
+			}
+			continue;
+		}
+
+		switch (itr->first)
+		{
+		case signup:
+			if(cli::signup())
+				logged_in = true;
+			break;
+		case login:
+			if (cli::login())
+				logged_in = true;
+			break;
+		case exit:
+			cli::exit();
+		default:
+			if (logged_in)
+				switch (itr->first)
+				{
+					default:
+					break;
+				}
+		}
+	}
+}
