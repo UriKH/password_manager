@@ -4,17 +4,17 @@
 #include <map>
 
 
-class Credentials{
+class Account{
 private:
 	std::string _site;
 	std::string _username;
 	std::string _pwd;
 	//std::string _notes;
 public:
-	//Credentials(const std::string &, const std::string &, const std::string &, const std::string &);
-	Credentials(const std::string &, const std::string &, const std::string &);
-	Credentials(const Credentials &);
-	~Credentials();
+	//accounts(const std::string &, const std::string &, const std::string &, const std::string &);
+	Account(const std::string &, const std::string &, const std::string &);
+	Account(const Account &);
+	~Account();
 
 	void set_pwd(const std::string &);
 	void set_site(const std::string &);

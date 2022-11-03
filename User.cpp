@@ -6,7 +6,7 @@ User::User(const std::string &username, const std::string &password)
 User::User(const User &other){
 	_username = other._username;
 	_password = other._password;
-	_credentials = other._credentials;
+	_accounts = other._accounts;
 }
 
 User::~User(){}
@@ -17,17 +17,21 @@ User::~User(){}
 
 void User::set_pwd(const std::string &new_pwd){ _password = new_pwd; }
 void User::set_username(const std::string &username) { _username = username; }
-void User::append(const Credentials &c) { _credentials.push_back(c); }
+void User::append(const Account &c) { _accounts.push_back(c); }
 
-const std::vector<Credentials> &User::get_credentials() const { return _credentials; }
+const std::vector<Account> &User::get_accounts() const { return _accounts; }
 const std::string &User::get_pwd() const { return _password; }
 const std::string &User::get_username() const { return _username; }
 
-void User::delete_credentials(std::string site, std::string username){
-	for (int i = 0; i < _credentials.size(); i++) {
-		if (_credentials[i].get_site() == site && _credentials[i].get_username() == username){
-			_credentials.erase(_credentials.begin() + i);
+void User::delete_account(std::string site, std::string username){
+	for (int i = 0; i < _accounts.size(); i++) {
+		if (_accounts[i].get_site() == site && _accounts[i].get_username() == username){
+			_accounts.erase(_accounts.begin() + i);
 			return;
 		}
 	}
+}
+
+void User::add_new_account(std::string site, std::string username, std::string password){
+	_accounts.emplace_back(Account::Account(site, username, password));
 }

@@ -1,5 +1,6 @@
 #include <map>
 #include <iostream>
+#include <sstream>
 #include "command_interface.h"
 #include "errors_def.h"
 
@@ -10,9 +11,9 @@ enum cmd_id
 	login,
 	signup,
 	exit,
+	delete_user,
+	add_account,
 	delete_account,
-	add_credentials,
-	delete_credentials,
 	change_pwd,
 	change_usrnm
 };
@@ -22,9 +23,9 @@ std::map<int, std::string> commands = {
 	{login, "login"},
 	{signup, "signup"},
 	{exit, "exit"},
-	{delete_account, "delete_user"},
-	{add_credentials, "add_account"},
-	{delete_credentials, "delete_account"},
+	{delete_user, "delete_user"},
+	{add_account, "add_account"},
+	{delete_account, "delete_account"},
 	{change_pwd, "change_user_password"},
 	{change_usrnm, "change_username"}};
 
@@ -95,6 +96,21 @@ void execute_commands() {
 			if (logged_in)
 				switch (itr->first)
 				{
+					case delete_account:
+					cli::delete_account();
+					break;
+					case add_account:
+					cli::add_new_account();
+					break;
+					case delete_user:
+					cli::delete_user();
+					break;
+					case change_pwd:
+					cli::change_account_info(cli::PASSWORD);
+					break;
+					case change_usrnm:
+					cli::change_account_info(cli::USERNAME);
+					break;
 					default:
 					break;
 				}

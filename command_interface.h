@@ -1,8 +1,8 @@
 #pragma once
 
-#include <utility>
-#include <tuple>
-#include <string>
+//#include <utility>
+//#include <tuple>
+//#include <string>
 
 namespace command_line_interface {
 	//std::pair<std::string, std::string> get_id();
@@ -10,18 +10,19 @@ namespace command_line_interface {
 	bool signup();
 	void exit();
 
-	void delete_account();
+	void delete_user();
 	//std::string ask_pwd();
 
-	std::tuple<std::string, std::string, std::string> add_new_credentials();
-	void delete_credentials();
+	void add_new_account();
+	void delete_account();
 	// std::string add_notes();
 
-	std::tuple<std::string, std::string, std::string> ask_change(enum to_change change);
+	void change_account_info(enum to_change);
+	
+	enum to_change
+	{
+		PASSWORD,
+		USERNAME
+	};
 };
 
-enum to_change {
-	PASSWORD,
-	USERNAME,
-	NOTES
-};
