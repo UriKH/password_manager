@@ -36,10 +36,8 @@ void execute_commands() {
 	bool valid_cmd = false;
 	bool logged_in = false;
 
-	while (command_str.compare(commands[exit_prog]))
-	{
-		if (!skip)
-		{
+	while (command_str.compare(commands[exit_prog])) {
+		if (!skip) {
 			// skiping if command was already inserted when the last one was wrong
 			std::string line;
 			std::getline(std::cin, line);
@@ -47,17 +45,14 @@ void execute_commands() {
 
 		// checking if the command is valid
 		valid_cmd = false;
-		for (itr = commands.begin(); itr != commands.end(); itr++)
-		{
-			if (itr->second.compare(command_str))
-			{
+		for (itr = commands.begin(); itr != commands.end(); itr++) {
+			if (itr->second.compare(command_str)) {
 				valid_cmd = true;
 				break;
 			}
 		}
 
-		if (!valid_cmd)
-		{
+		if (!valid_cmd) {
 			// if the command is not valid ask the user to print all valid commands
 			std::cout << NO_SUCH_COMMAND << std::endl;
 			std::cout << SHOW_COMMAND_LIST;
@@ -69,8 +64,7 @@ void execute_commands() {
 			if (to_show.compare(SHOW_COMMAND))
 				for (auto &cmd : commands)
 					std::cout << cmd.second;
-			else
-			{
+			else {
 				// use the new inserted command insted
 				command_str = to_show;
 				skip = true;
@@ -79,8 +73,7 @@ void execute_commands() {
 		}
 
 		std::cout << itr->first << std::endl;
-		switch (itr->first)
-		{
+		switch (itr->first) {
 		case signup:
 			if(cli::signup())
 				logged_in = true;
@@ -94,8 +87,7 @@ void execute_commands() {
 			//throw std::exception("exiting");
 		default:
 			if (logged_in)
-				switch (itr->first)
-				{
+				switch (itr->first) {
 					case delete_account:
 						cli::delete_site();
 						break;
