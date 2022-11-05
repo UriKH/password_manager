@@ -2,8 +2,8 @@ CC = g++
 CFLAGS = -Wall -pedantic
 BUILDFLAGS = -c -g
 
-main: main.o execute.o load.o Account.o User.o Users.o command_interface.o
-	$(CC) $(CFLAGS) main.o execute.o load.o Account.o User.o Users.o command_interface.o -o main
+main.exe: main.o execute.o load.o Account.o User.o Users.o command_interface.o
+	$(CC) -g $(CFLAGS) main.o execute.o load.o Account.o User.o Users.o command_interface.o -o main.exe
 main.o: main.cpp load.h execute.h
 	$(CC) $(BUILDFLAGS) $(CFLAGS) main.cpp -o main.o
 execute.o: execute.cpp command_interface.h errors_def.h #execute.h
@@ -18,3 +18,6 @@ Users.o: Users.cpp errors_def.h
 	$(CC) $(BUILDFLAGS) $(CFLAGS) Users.cpp -o Users.o
 command_interface.o: command_interface.cpp command_interface.h Users.h errors_def.h
 	$(CC) $(BUILDFLAGS) $(CFLAGS) command_interface.cpp -o command_interface.o
+
+clean:
+	rm *.o

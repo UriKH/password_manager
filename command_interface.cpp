@@ -20,7 +20,7 @@ std::pair<std::string, std::string> get_id(){
 bool cli::login()
 {
 	auto id = get_id();
-	if (users->exists(id.first, id.second)){
+	if (!users->exists(id.first, id.second)){
 		current_user = id.first;
 		return true;
 	}
@@ -37,7 +37,7 @@ bool cli::signup() {
 }
 
 void cli::exit(){
-	quick_exit(0);
+	std::exit(0);
 }
 
 void cli::delete_user() { users->delete_user(current_user); }

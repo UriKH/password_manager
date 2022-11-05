@@ -25,7 +25,7 @@ const std::string &User::get_username() const { return _username; }
 
 void User::delete_account(const std::string &site, const std::string &username){
 	for (size_t i = 0; i < _accounts.size(); i++) {
-		if (_accounts[i].get_site() == site && _accounts[i].get_username() == username){
+		if (_accounts[i].get_site().compare(site) && _accounts[i].get_username().compare(username)){
 			_accounts.erase(_accounts.begin() + i);
 			return;
 		}

@@ -9,7 +9,7 @@ namespace cli = command_line_interface;
 
 enum cmd_id
 {
-	login,
+	login = 0,
 	signup,
 	exit_prog,
 	delete_user,
@@ -19,7 +19,6 @@ enum cmd_id
 	change_usrnm
 };
 
-std::map<int, std::string>::iterator itr;
 std::map<int, std::string> commands = {
 	{login, "login"},
 	{signup, "signup"},
@@ -31,12 +30,13 @@ std::map<int, std::string> commands = {
 	{change_usrnm, "change_username"}};
 
 void execute_commands() {
+	std::map<int, std::string>::iterator itr;
 	std::string command_str = "";
 	bool skip = false;
 	bool valid_cmd = false;
 	bool logged_in = false;
 
-	while (command_str != commands[exit_prog])
+	while (command_str.compare(commands[exit_prog]))
 	{
 		if (!skip)
 		{
@@ -49,7 +49,7 @@ void execute_commands() {
 		valid_cmd = false;
 		for (itr = commands.begin(); itr != commands.end(); itr++)
 		{
-			if (itr->second == command_str)
+			if (itr->second.compare(command_str))
 			{
 				valid_cmd = true;
 				break;
@@ -66,7 +66,7 @@ void execute_commands() {
 			std::getline(std::cin, to_show);
 
 			// print all the available commands
-			if (to_show == SHOW_COMMAND)
+			if (to_show.compare(SHOW_COMMAND))
 				for (auto &cmd : commands)
 					std::cout << cmd.second;
 			else
@@ -78,6 +78,7 @@ void execute_commands() {
 			continue;
 		}
 
+		std::cout << itr->first << std::endl;
 		switch (itr->first)
 		{
 		case signup:
