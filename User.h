@@ -20,8 +20,8 @@ public:
 	void set_username(const std::string &);
 	void append(const Account &);
 
-	void delete_account(std::string, std::string);
-	void User::add_new_account(std::string, std::string, std::string);
+	void delete_account(const std::string &, const std::string &);
+	void add_new_account(const std::string &, const std::string &, const std::string &);
 
 	const std::vector<Account> &get_accounts() const;
 	const std::string &get_pwd() const;

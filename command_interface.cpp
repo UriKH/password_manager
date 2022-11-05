@@ -42,37 +42,36 @@ void cli::exit(){
 
 void cli::delete_user() { users->delete_user(current_user); }
 
-//std::string cli::ask_pwd();
-
-void cli::add_new_account(){
+void cli::add_new_site(){
 	std::string site, username, pwd;
 	std::cout << "enter site, username and password";
 	std::cin >> site >> username >> pwd;
 	users->get_user(current_user)->add_new_account(site, username, pwd);
 }
 
-void cli::delete_account(){
+void cli::delete_site(){
 	std::string site, username;
 	std::cout << "enter site and username";
 	std::cin >> site >> username;
 	users->get_user(current_user)->delete_account(site, username);
 }
 
-//std::string cli::add_notes();
-
 void cli::change_account_info(cli::to_change change) {
-	switch(change){
-		case cli::PASSWORD:
-			std::string new_pwd;
-			std::cout << "enter new password: ";
-			std::cin >> new_pwd;
-			users->get_user(current_user)->set_pwd(new_pwd);
-			break;
-		case cli::USERNAME:
-			std::string new_usrnm;
-			std::cout << "enter new username: ";
-			std::cin >> new_usrnm;
-			users->get_user(current_user)->set_username(new_usrnm);
-			break;
+	if(change == cli::PASSWORD){
+		std::string new_pwd;
+		std::cout << "enter new password: ";
+		std::cin >> new_pwd;
+		users->get_user(current_user)->set_pwd(new_pwd);
 	}
+	else if (change == cli::USERNAME){
+		std::string new_usrnm;
+		std::cout << "enter new username: ";
+		std::cin >> new_usrnm;
+		users->get_user(current_user)->set_username(new_usrnm);
+	}
+	else
+		throw std::invalid_argument("Fatal Error: not a changable account info");
+	return;
 }
+
+// std::string cli::add_notes();

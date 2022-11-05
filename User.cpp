@@ -23,8 +23,8 @@ const std::vector<Account> &User::get_accounts() const { return _accounts; }
 const std::string &User::get_pwd() const { return _password; }
 const std::string &User::get_username() const { return _username; }
 
-void User::delete_account(std::string site, std::string username){
-	for (int i = 0; i < _accounts.size(); i++) {
+void User::delete_account(const std::string &site, const std::string &username){
+	for (size_t i = 0; i < _accounts.size(); i++) {
 		if (_accounts[i].get_site() == site && _accounts[i].get_username() == username){
 			_accounts.erase(_accounts.begin() + i);
 			return;
@@ -32,6 +32,6 @@ void User::delete_account(std::string site, std::string username){
 	}
 }
 
-void User::add_new_account(std::string site, std::string username, std::string password){
-	_accounts.emplace_back(Account::Account(site, username, password));
+void User::add_new_account(const std::string& site, const std::string &username, const std::string &password){
+	_accounts.emplace_back(Account(site, username, password));
 }

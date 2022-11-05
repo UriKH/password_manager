@@ -23,7 +23,7 @@ bool Users::add_user(User user){
 }
 
 User *Users::get_user(const std::string& username){
-	for (int i = 0; i < _users.size(); i++)
+	for (size_t i = 0; i < _users.size(); i++)
 		if (_users[i].get_username() == username)
 			return &(_users[i]);
 	return nullptr;
@@ -44,7 +44,7 @@ bool Users::exists(std::string username, std::string password)
 }
 
 void Users::delete_user(std::string username){
-	for (int i = 0; i < _users.size(); i++) {
+	for (size_t i = 0; i < _users.size(); i++) {
 		if (_users[i].get_username() == username){
 			_users.erase(_users.begin() + i);
 			return;

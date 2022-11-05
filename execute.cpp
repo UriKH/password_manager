@@ -3,6 +3,7 @@
 #include <sstream>
 #include "command_interface.h"
 #include "errors_def.h"
+#include "execute.h"
 
 namespace cli = command_line_interface;
 
@@ -10,7 +11,7 @@ enum cmd_id
 {
 	login,
 	signup,
-	exit,
+	exit_prog,
 	delete_user,
 	add_account,
 	delete_account,
@@ -22,7 +23,7 @@ std::map<int, std::string>::iterator itr;
 std::map<int, std::string> commands = {
 	{login, "login"},
 	{signup, "signup"},
-	{exit, "exit"},
+	{exit_prog, "exit"},
 	{delete_user, "delete_user"},
 	{add_account, "add_account"},
 	{delete_account, "delete_account"},
@@ -34,12 +35,9 @@ void execute_commands() {
 	bool skip = false;
 	bool valid_cmd = false;
 	bool logged_in = false;
-	int i;
 
-	while (command_str != commands[exit])
+	while (command_str != commands[exit_prog])
 	{
-		itr = commands.begin();
-
 		if (!skip)
 		{
 			// skiping if command was already inserted when the last one was wrong
@@ -49,7 +47,7 @@ void execute_commands() {
 
 		// checking if the command is valid
 		valid_cmd = false;
-		for (itr; itr != commands.end(); itr++)
+		for (itr = commands.begin(); itr != commands.end(); itr++)
 		{
 			if (itr->second == command_str)
 			{
@@ -90,27 +88,28 @@ void execute_commands() {
 			if (cli::login())
 				logged_in = true;
 			break;
-		case exit:
-			cli::exit();
+		case exit_prog:
+			std::exit(0);
+			//throw std::exception("exiting");
 		default:
 			if (logged_in)
 				switch (itr->first)
 				{
 					case delete_account:
-					cli::delete_account();
-					break;
+						cli::delete_site();
+						break;
 					case add_account:
-					cli::add_new_account();
-					break;
+						cli::add_new_site();
+						break;
 					case delete_user:
-					cli::delete_user();
-					break;
+						cli::delete_user();
+						break;
 					case change_pwd:
-					cli::change_account_info(cli::PASSWORD);
-					break;
+						cli::change_account_info(cli::PASSWORD);
+						break;
 					case change_usrnm:
-					cli::change_account_info(cli::USERNAME);
-					break;
+						cli::change_account_info(cli::USERNAME);
+						break;
 					default:
 					break;
 				}
