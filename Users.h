@@ -24,7 +24,7 @@ public:
 	static Users* get_instance();
 
 	User *get_user(const std::string &);
-	bool add_user(User);
-	bool exists(std::string, std::string);
-	void delete_user(std::string);
+	bool add_user(const User &);
+	bool exists(const std::string &, const std::string &);
+	void delete_user(const std::string &);
 };

@@ -6,8 +6,6 @@ author: Uri K.H. (2022)
 */
 
 #include <map>
-#include <iostream>
-#include <sstream>
 #include "command_interface.h"
 #include "errors_def.h"
 #include "execute.h"
@@ -35,10 +33,10 @@ std::map<int, std::string> commands = {
 	{logout, "logout"},
 	{signup, "signup"},
 	{exit_prog, "exit"},
-	{delete_user, "delete_user"},
+	{delete_user, "del_user"},
 	{add_account, "add_account"},
-	{delete_account, "delete_account"},
-	{change_pwd, "change_user_password"},
+	{delete_account, "del_account"},
+	{change_pwd, "change_password"},
 	{change_usrnm, "change_username"},
 	{show_sites, "show_sites"}
 	};
@@ -46,7 +44,8 @@ std::map<int, std::string> commands = {
 
 void execute_commands() {
 	std::map<int, std::string>::iterator itr; // iterator for going ober the commands list
-	std::string command_str = ""; // temporary string containing the user command from the stream
+	std::string command_str; // temporary string containing the user command from the stream
+	std::string to_show;
 
 	//flags
 	bool skip = false;
@@ -57,8 +56,10 @@ void execute_commands() {
 	while (command_str.compare(commands[exit_prog]) != 0)
 	{
 		// skiping if command was already inserted when the last one was wrong
-		if (!skip)
+		if (!skip){
+			std::cout << "> ";
 			std::cin >> command_str;
+		}
 
 		// checking if the command is valid
 		valid_cmd = false;
@@ -71,16 +72,16 @@ void execute_commands() {
 
 		// if the command is not valid ask the user to print all valid commands
 		if (!valid_cmd) {
-			std::cout << NO_SUCH_COMMAND << std::endl;
-			std::cout << SHOW_COMMAND_LIST << std::endl;
+			LOG(NO_SUCH_COMMAND);
+			LOG(SHOW_COMMAND_LIST);
 
-			std::string to_show;
 			std::cin >> to_show;
+			std::cout << std::endl << "> ";
 
 			// print all the available commands
 			if (to_show.compare(SHOW_COMMAND) == 0)
 				for (auto &cmd : commands)
-					std::cout << cmd.second << std::endl;
+					LOG(cmd.second);
 			else {
 				// use the new inserted command insted
 				command_str = to_show;
@@ -92,15 +93,27 @@ void execute_commands() {
 		// decide which command to run
 		switch (itr->first) {
 		case signup:
-			if(cli::signup())
-				logged_in = true;
-			break;
+			if (!logged_in)
+			{
+				if (cli::signup()){
+					logged_in = true;
+					break;
+				}
+			}
+			else
+				LOG(ALREADY_LOGGED_IN);
 		case login:
-			if (cli::login())
-				logged_in = true;
-			break;
+			if (!logged_in){
+				if (cli::login()){
+					logged_in = true;
+					break;
+				}
+			}
+			else
+				LOG(ALREADY_LOGGED_IN);
 		case exit_prog:
 			std::exit(0);
+			break;
 		default:
 			if (logged_in){
 				switch (itr->first) {
@@ -131,7 +144,7 @@ void execute_commands() {
 				}
 			}
 			else
-				std::cout << NOT_LOGGED_IN << std::endl;
+				LOG(NOT_LOGGED_IN);
 		}
 	}
 }

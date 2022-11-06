@@ -12,7 +12,7 @@ private:
 public:
 	User(const std::string&, const std::string&);
 	User(const User&);
-	~User();
+	//~User();
 
 	//bool equals(const User &other);
 

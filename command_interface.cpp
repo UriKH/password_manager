@@ -1,7 +1,6 @@
 #include "errors_def.h"
 #include "command_interface.h"
 #include "Users.h"
-#include <iostream>
 
 namespace cli = command_line_interface;
 
@@ -77,7 +76,7 @@ void cli::change_account_info(cli::to_change change) {
 		users->get_user(current_user)->set_username(new_usrnm);
 	}
 	else
-		std::cout << "Fatal Error: not a changable account info\n";
+		LOG("Fatal Error: not a changable account info");
 			// throw std::invalid_argument("Fatal Error: not a changable account info");		
 	return;
 }
@@ -86,5 +85,5 @@ void cli::change_account_info(cli::to_change change) {
 
 void cli::show_sites(){
 	for(auto& account : users->get_user(current_user)->get_accounts())
-		std::cout << account.to_string() << std::endl;
+		LOG(account.to_string());
 }

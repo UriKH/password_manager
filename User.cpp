@@ -9,13 +9,11 @@ User::User(const User &other){
 	_accounts = other._accounts;
 }
 
-User::~User(){}
-
 /*bool User::equals(const User& other){
 	return other._password == _password;
 }*/
 
-void User::set_pwd(const std::string &new_pwd){ _password = std::string(new_pwd); }
+void User::set_pwd(const std::string &new_pwd){ _password = new_pwd; }
 void User::set_username(const std::string &username) { _username = username; }
 void User::append(const Account &c) { _accounts.push_back(c); }
 
