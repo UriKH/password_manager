@@ -15,7 +15,7 @@ User::~User(){}
 	return other._password == _password;
 }*/
 
-void User::set_pwd(const std::string &new_pwd){ _password = new_pwd; }
+void User::set_pwd(const std::string &new_pwd){ _password = std::string(new_pwd); }
 void User::set_username(const std::string &username) { _username = username; }
 void User::append(const Account &c) { _accounts.push_back(c); }
 
@@ -25,7 +25,7 @@ const std::string &User::get_username() const { return _username; }
 
 void User::delete_account(const std::string &site, const std::string &username){
 	for (size_t i = 0; i < _accounts.size(); i++) {
-		if (_accounts[i].get_site().compare(site) && _accounts[i].get_username().compare(username)){
+		if (_accounts[i].get_site().compare(site) == 0 && _accounts[i].get_username().compare(username) == 0){
 			_accounts.erase(_accounts.begin() + i);
 			return;
 		}

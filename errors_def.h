@@ -5,6 +5,7 @@
 #define NO_SUCH_COMMAND "Error: No such command"
 #define USER_ALREADY_EXIST "Error: User already exists"
 #define WRONG_PWD "Error: Password is incorrect"
+#define NOT_LOGGED_IN "Error: Not logged in, permission to run denied"
 
 #define SHOW_COMMAND "show"
 #define SHOW_COMMAND_LIST "[if you want to see the list of commands write \"show\"]"

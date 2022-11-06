@@ -27,4 +27,6 @@ public:
 	const std::string get_site() const;
 	const std::string get_username() const;
 	// const std::string get_notes() const;
+
+	const std::string to_string() const;
 };

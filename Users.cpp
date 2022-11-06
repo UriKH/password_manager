@@ -13,18 +13,18 @@ Users *Users::get_instance(){
 
 bool Users::add_user(User user){
 	for (auto& temp : _users){
-		if (temp.get_username().compare(user.get_username())){
+		if (temp.get_username().compare(user.get_username()) == 0){
 			std::cout << USER_ALREADY_EXIST << std::endl;
 			return false;
 		}
 	}
-	_users.push_back(user);
+	_users.emplace_back(user);
 	return true;
 }
 
 User *Users::get_user(const std::string& username){
 	for (size_t i = 0; i < _users.size(); i++)
-		if (_users[i].get_username().compare(username))
+		if (_users[i].get_username().compare(username) == 0)
 			return &(_users[i]);
 	return nullptr;
 }
@@ -36,7 +36,7 @@ bool Users::exists(std::string username, std::string password)
 		std::cout << USER_NOT_EXIST << std::endl;
 		return false;
 	}
-	if (user->get_pwd().compare(password)){
+	if (user->get_pwd().compare(password) != 0){
 		std::cout << WRONG_PWD << std::endl;
 		return false;
 	}
@@ -45,7 +45,7 @@ bool Users::exists(std::string username, std::string password)
 
 void Users::delete_user(std::string username){
 	for (size_t i = 0; i < _users.size(); i++) {
-		if (_users[i].get_username().compare(username)){
+		if (_users[i].get_username().compare(username) == 0){
 			_users.erase(_users.begin() + i);
 			return;
 		}

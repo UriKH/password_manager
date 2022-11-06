@@ -19,6 +19,7 @@ namespace command_line_interface {
 
 	void add_new_site();
 	void delete_site();
+	void show_sites();
 	// std::string add_notes();
 
 	void change_account_info(enum to_change);

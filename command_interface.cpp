@@ -6,13 +6,14 @@
 namespace cli = command_line_interface;
 
 static std::string current_user;
-Users *users = Users::get_instance();
+static Users *users = Users::get_instance();
 
+// get id of user from stream
 std::pair<std::string, std::string> get_id(){
 	std::string username, password;
-	std::cout << "Enter username: ";
+	std::cout << "> Enter username: ";
 	std::cin >> username;
-	std::cout << "Enter password: ";
+	std::cout << "> Enter password: ";
 	std::cin >> password;
 	return std::make_pair(username, password);
 }
@@ -20,7 +21,7 @@ std::pair<std::string, std::string> get_id(){
 bool cli::login()
 {
 	auto id = get_id();
-	if (!users->exists(id.first, id.second)){
+	if (users->exists(id.first, id.second)){
 		current_user = id.first;
 		return true;
 	}
@@ -40,18 +41,24 @@ void cli::exit(){
 	std::exit(0);
 }
 
-void cli::delete_user() { users->delete_user(current_user); }
+void cli::delete_user() { 
+	users->delete_user(current_user);
+}
 
 void cli::add_new_site(){
 	std::string site, username, pwd;
-	std::cout << "enter site, username and password";
-	std::cin >> site >> username >> pwd;
+	std::cout << "> enter site: ";
+	std::cin >> site;
+	std::cout << "> enter username: ";
+	std::cin >> username;
+	std::cout << "> enter password: ";
+	std::cin >> pwd;
 	users->get_user(current_user)->add_new_account(site, username, pwd);
 }
 
 void cli::delete_site(){
 	std::string site, username;
-	std::cout << "enter site and username";
+	std::cout << "> enter site and username: ";
 	std::cin >> site >> username;
 	users->get_user(current_user)->delete_account(site, username);
 }
@@ -59,19 +66,25 @@ void cli::delete_site(){
 void cli::change_account_info(cli::to_change change) {
 	if(change == cli::PASSWORD){
 		std::string new_pwd;
-		std::cout << "enter new password: ";
+		std::cout << "> enter new password: ";
 		std::cin >> new_pwd;
 		users->get_user(current_user)->set_pwd(new_pwd);
 	}
 	else if (change == cli::USERNAME){
 		std::string new_usrnm;
-		std::cout << "enter new username: ";
+		std::cout << "> enter new username: ";
 		std::cin >> new_usrnm;
 		users->get_user(current_user)->set_username(new_usrnm);
 	}
 	else
-		throw std::invalid_argument("Fatal Error: not a changable account info");
+		std::cout << "Fatal Error: not a changable account info\n";
+			// throw std::invalid_argument("Fatal Error: not a changable account info");		
 	return;
 }
 
 // std::string cli::add_notes();
+
+void cli::show_sites(){
+	for(auto& account : users->get_user(current_user)->get_accounts())
+		std::cout << account.to_string() << std::endl;
+}

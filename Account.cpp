@@ -13,3 +13,7 @@ void Account::set_username(const std::string &username){ _username = username; }
 const std::string Account::get_pwd() const { return _pwd; }
 const std::string Account::get_site() const { return _site; }
 const std::string Account::get_username() const { return _username; }
+
+const std::string Account::to_string() const {
+	return "site: " + _site + " | username: " + _username + " | password: " + _pwd;
+}
