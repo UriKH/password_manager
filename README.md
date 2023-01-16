@@ -1,2 +1,2 @@
 # password_manager
-all rights reserved Uri_K.H.
+Manage passwords for different users in the system.
