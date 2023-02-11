@@ -2,12 +2,12 @@
 
 
 #include <vector>
+#include <memory>
 #include "User.h"
 
 /* 
 Users is a singleton class representing the database containing all the users and their information.
 The initialization of this call will accur once at the start and will be used with a single object all.
-
 */
 class Users{
 private:

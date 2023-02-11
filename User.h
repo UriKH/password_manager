@@ -16,7 +16,7 @@ public:
 
 	//bool equals(const User &other);
 
-	void set_pwd(const std::string&);
+	void set_pwd(const std::string &);
 	void set_username(const std::string &);
 	void append(const Account &);
 

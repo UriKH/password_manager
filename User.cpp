@@ -31,5 +31,5 @@ void User::delete_account(const std::string &site, const std::string &username){
 }
 
 void User::add_new_account(const std::string& site, const std::string &username, const std::string &password){
-	_accounts.emplace_back(Account(site, username, password));
+	_accounts.emplace_back(site, username, password);
 }

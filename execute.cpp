@@ -43,7 +43,7 @@ std::map<int, std::string> commands = {
 
 
 void execute_commands() {
-	std::map<int, std::string>::iterator itr; // iterator for going ober the commands list
+	std::map<int, std::string>::iterator itr; // iterator for going over the commands list
 	std::string command_str; // temporary string containing the user command from the stream
 	std::string to_show;
 
